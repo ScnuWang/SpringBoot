@@ -24,9 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.userDetailsService(customUserService());
-
     }
-
 
     /**
      *  定义哪些URL需要被保护
@@ -37,16 +35,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").successForwardUrl("/").failureUrl("/login?error").permitAll().and()
+                .and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll().and()
                 .logout().permitAll();
-
     }
+
+
 
     /**
      *
      * @param auth
      * @throws Exception
      */
+//    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        //将单个用户设置在内存中
 ////        super.configure(auth);//根据默认实现获取一个AuthenticationManager---》调用WebSecurityConfigurerAdapter的authenticationManager()方法

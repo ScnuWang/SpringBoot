@@ -1,4 +1,4 @@
-package cn.geekview.entity;
+package cn.geekview.entity.model;
 
 public class Msg {
     private String title;

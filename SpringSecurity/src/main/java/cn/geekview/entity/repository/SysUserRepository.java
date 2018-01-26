@@ -1,8 +1,8 @@
-package cn.geekview.repository;
+package cn.geekview.entity.repository;
 
-import cn.geekview.entity.SysUser;
+import cn.geekview.entity.model.SysUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SysUserRepository extends JpaRepository<SysUser,Long> {
-    SysUser findByUsername(String username);
+    SysUser findByUsername(String name);
 }

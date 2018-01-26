@@ -1,7 +1,7 @@
 package cn.geekview.service;
 
-import cn.geekview.entity.SysUser;
-import cn.geekview.repository.SysUserRepository;
+import cn.geekview.entity.model.SysUser;
+import cn.geekview.entity.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

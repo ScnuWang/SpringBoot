@@ -1,4 +1,4 @@
-package cn.geekview.entity;
+package cn.geekview.entity.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

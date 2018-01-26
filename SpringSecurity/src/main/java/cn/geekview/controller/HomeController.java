@@ -1,6 +1,6 @@
 package cn.geekview.controller;
 
-import cn.geekview.entity.Msg;
+import cn.geekview.entity.model.Msg;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

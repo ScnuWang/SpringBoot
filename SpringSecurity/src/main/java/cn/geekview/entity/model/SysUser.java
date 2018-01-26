@@ -1,4 +1,4 @@
-package cn.geekview.entity;
+package cn.geekview.entity.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

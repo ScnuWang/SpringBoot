@@ -23,7 +23,8 @@ import java.io.IOException;
  *
  */
 @Component
-public class MySecurityFilter extends AbstractSecurityInterceptor implements Filter{
+public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter{
+
     @Autowired
     private CustomInvocationSecurityMetadataSourceService mySecurityMetadataSource;
 
@@ -33,6 +34,10 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     *  被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，
+     *  被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
+     */
     @PostConstruct
     public void init(){
         super.setAuthenticationManager(authenticationManager);
@@ -58,7 +63,6 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
         }finally{
             super.afterInvocation(token, null);
         }
-
     }
 
 

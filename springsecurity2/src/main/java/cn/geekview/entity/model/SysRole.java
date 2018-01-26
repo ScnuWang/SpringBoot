@@ -2,17 +2,18 @@ package cn.geekview.entity.model;
 
 import javax.persistence.*;
 
+
+//@Table(name="s_role")
 @Entity
-@Table(name="s_role")
 public class SysRole {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column (name="id",length=10)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid", nullable = false)
-    private SysUser SUser;//角色对应的用户实体
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "uid", nullable = false)//指向另一个表的外键
+//    private SysUser SUser;//角色对应的用户实体
 
     @Column(name="name",length=100)
     private String name;//角色名称
@@ -30,12 +31,12 @@ public class SysRole {
     public void setName(String name) {
         this.name = name;
     }
-    public SysUser getSUser() {
-        return SUser;
-    }
-    public void setSUser(SysUser sUser) {
-        SUser = sUser;
-    }
+//    public SysUser getSUser() {
+//        return SUser;
+//    }
+//    public void setSUser(SysUser sUser) {
+//        SUser = sUser;
+//    }
 
 
 }

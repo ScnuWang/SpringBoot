@@ -19,7 +19,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MySecurityFilter mySecurityFilter;
+    private MyFilterSecurityInterceptor mySecurityFilter;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .anyRequest().authenticated()
-                //.antMatchers("/hello").hasAuthority("ADMIN")
+                .antMatchers("/hello").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")

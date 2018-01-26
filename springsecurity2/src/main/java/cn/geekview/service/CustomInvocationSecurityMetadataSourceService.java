@@ -38,9 +38,12 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
     }*/
 
     /**
-     *      被@PostConstruct修饰的方法会在服务器加载Servle的时候运行，并且只会被服务器执行一次。
+     *      被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次。
      *      PostConstruct在构造函数之后执行,init()方法之前执行。
-     *      一定要加上@PostConstruct注解
+     *      此处一定要加上@PostConstruct注解
+     *
+     *      注意: 形成以URL为Key,权限列表为Value的Map时，注意Key和Value的对应性，
+     *      避免Value的不正确对应形成重复，这样会导致没有权限的也能访问到不该访问的资源
      */
     @PostConstruct
     private void loadResourceDefine() {
@@ -98,7 +101,11 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         return new ArrayList<ConfigAttribute>();
     }
-    // 根据URL，找到相关的权限配置。
+
+    /**
+     *  根据URL，找到相关的权限配置。
+     *  要有URL.indexof("?")这样的判断，主要是对URL你问号之前的匹配，避免对用户请求带参数的URL与数据库里面的URL不匹配，造成访问拒绝
+      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
           // object 是一个URL，被用户请求的url。
@@ -109,7 +116,7 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
             Iterator<String> iterator = resourceMap.keySet().iterator();
             while (iterator.hasNext()) {
                 String resURL = iterator.next();
-                // 这里的路径判断的作用？？？
+                // 优化请求路径后面带参数的部分
                 RequestMatcher requestMatcher = new AntPathRequestMatcher(resURL);
                 if(requestMatcher.matches(filterInvocation.getHttpRequest())) {
                     return resourceMap.get(resURL);

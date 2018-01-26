@@ -35,6 +35,7 @@ public class Springsecurity2Application {
 		//SpringApplication.run(MainApplication.class, args);
 		SpringApplication app = new SpringApplication(Springsecurity2Application.class);
 		Appctx.ctx = app.run(args);
+		//手动给密码加密
 //        UserService suserService = (UserService) Appctx.ctx.getBean("UserService");
 //        SysUser su= suserService.findByUsername("dongdong");
 //        System.out.println("密码"+su.getPassword());

@@ -3,8 +3,8 @@ package cn.geekview.entity.model;
 import javax.persistence.*;
 import java.util.Date;
 
+//@Table(name="s_resource_role")
 @Entity
-@Table(name="s_resource_role")
 public class SysResourceRole {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

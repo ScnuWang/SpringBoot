@@ -2,6 +2,7 @@ package cn.geekview.entity.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,7 @@ public class SecurityUser extends SysUser implements UserDetails {
         if(suser != null)
         {
             this.setId(suser.getId());
-            this.setName(suser.getName());
+            this.setUsername(suser.getUsername());
             this.setEmail(suser.getEmail());
             this.setPassword(suser.getPassword());
             this.setDob(suser.getDob());
@@ -27,7 +28,7 @@ public class SecurityUser extends SysUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        Set<SysRole> userRoles = this.getSysRoles();
+        List<SysRole> userRoles = this.getSysRoles();
 
         if(userRoles != null)
         {
@@ -46,7 +47,7 @@ public class SecurityUser extends SysUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return super.getName();
+        return super.getUsername();
     }
 
     @Override

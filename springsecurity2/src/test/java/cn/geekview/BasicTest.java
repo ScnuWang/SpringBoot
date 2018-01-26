@@ -13,6 +13,6 @@ public class BasicTest {
     @Test
     public void test(){
         BCryptPasswordEncoder bc=new BCryptPasswordEncoder(4);//将密码加密
-        System.out.println("密码:"+ bc.encode("bingbing"));
+        System.out.println("密码:"+ bc.encode("jason"));
     }
 }

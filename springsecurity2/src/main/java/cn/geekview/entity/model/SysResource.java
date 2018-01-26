@@ -2,8 +2,9 @@ package cn.geekview.entity.model;
 
 import javax.persistence.*;
 
+
+//@Table(name="s_resource")
 @Entity
-@Table(name="s_resource")
 public class SysResource {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

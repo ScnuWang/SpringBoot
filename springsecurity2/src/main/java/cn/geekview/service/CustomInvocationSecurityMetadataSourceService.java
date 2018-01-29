@@ -53,7 +53,7 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
         List<String> roleNameList = new ArrayList<String>();
         if(roleList!=null && roleList.size()>0) {
             for (SysRole role : roleList) {
-                roleNameList.add(role.getName());
+                roleNameList.add(role.getRolename());
             }
         }
        /*

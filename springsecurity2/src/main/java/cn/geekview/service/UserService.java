@@ -11,7 +11,7 @@ public class UserService {
     private SysUserRepository userReporitory;
 
     public SysUser findByUsername(String username){
-        return userReporitory.findByName(username);
+        return userReporitory.findByUsername(username);
     }
 
 }

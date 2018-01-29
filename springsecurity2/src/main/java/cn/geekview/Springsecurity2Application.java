@@ -1,17 +1,13 @@
 package cn.geekview;
 
 import cn.geekview.config.Appctx;
-import cn.geekview.config.MySecurityFilter;
-import cn.geekview.entity.model.SysUser;
 import cn.geekview.entity.repository.SysResourceRepository;
-import cn.geekview.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

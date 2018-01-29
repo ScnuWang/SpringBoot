@@ -33,7 +33,7 @@ public class SecurityUser extends SysUser implements UserDetails {
         if(userRoles != null)
         {
             for (SysRole role : userRoles) {
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRolename());
                 authorities.add(authority);
             }
         }

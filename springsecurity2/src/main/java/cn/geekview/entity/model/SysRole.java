@@ -8,30 +8,33 @@ import javax.persistence.*;
 public class SysRole {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column (name="id",length=10)
-    private Integer id;
+    @Column (name="role_id",length=10)
+    private Integer roleId;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "uid", nullable = false)//指向另一个表的外键
 //    private SysUser SUser;//角色对应的用户实体
 
-    @Column(name="name",length=100)
-    private String name;//角色名称
+    @Column(name="rolename",length=100)
+    private String rolename;//角色名称
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public String getName() {
-        return name;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public String getRolename() {
+        return rolename;
     }
-//    public SysUser getSUser() {
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    //    public SysUser getSUser() {
 //        return SUser;
 //    }
 //    public void setSUser(SysUser sUser) {

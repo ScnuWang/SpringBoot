@@ -56,10 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .tokenValiditySeconds(1209600);
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
     }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         //指定密码加密所使用的加密器为passwordEncoder()

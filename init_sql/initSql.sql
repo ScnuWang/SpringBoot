@@ -23,16 +23,17 @@ INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `usernam
 INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `username`) VALUES ('2', NULL, NULL, '$2a$04$kNJhVE/sXpdDJY6x734H8.pXutDOYE4dKErwEB1m5froNMb2zcECu', 'dongdong');
 INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `username`) VALUES ('3', NULL, NULL, '$2a$04$0zbElHWKdnHPDjxM3xFUguAXSztudjwQ.TopN0IjHHjN14oIBfl..', 'jason');
 
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_roles_id`) VALUES ('1', '2');
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_roles_id`) VALUES ('2', '3');
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_roles_id`) VALUES ('3', '1');
-
 INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('1', NULL, NULL, NULL, '123', NULL, '/hello');
 INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('2', NULL, NULL, NULL, '456', NULL, '/hello2');
 INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('3', NULL, NULL, NULL, '789', NULL, '/hello3');
 
+
+INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('1', '2');
+INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('2', '3');
+INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('3', '1');
+
+
 INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('1', '123', '1', NULL);
 INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('2', '456', '2', NULL);
 INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('3', '789', '3', NULL);
-
 ### SpringSecurity2 初始化数据  ### 结束

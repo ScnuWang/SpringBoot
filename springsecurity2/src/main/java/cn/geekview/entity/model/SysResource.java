@@ -85,6 +85,17 @@ public class SysResource {
         this.methodPath = methodPath;
     }
 
-
+    @Override
+    public String toString() {
+        return "SysResource{" +
+                "id=" + id +
+                ", resourceString='" + resourceString + '\'' +
+                ", resourceId='" + resourceId + '\'' +
+                ", remark='" + remark + '\'' +
+                ", resourceName='" + resourceName + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", methodPath='" + methodPath + '\'' +
+                '}';
+    }
 }
 

@@ -68,7 +68,7 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 
     @Override
     public SecurityMetadataSource obtainSecurityMetadataSource(){
-        System.out.println("正在调用MySecurityFilter 中的 obtainSecurityMetadataSource（）方法");
+        System.out.println("MyFilterSecurityInterceptor 中的 obtainSecurityMetadataSource（）方法");
         return this.mySecurityMetadataSource;
     }
 

@@ -14,26 +14,24 @@ CREATE TABLE `persistent_logins` (
   PRIMARY KEY (`series`)
 );
 
-INSERT INTO `spring_boot`.`sys_role` (`role_id`, `rolename`) VALUES ('1', 'ADMIN');
-INSERT INTO `spring_boot`.`sys_role` (`role_id`, `rolename`) VALUES ('2', 'USER');
-INSERT INTO `spring_boot`.`sys_role` (`role_id`, `rolename`) VALUES ('3', 'VIP');
-INSERT INTO `spring_boot`.`sys_role` (`role_id`, `rolename`) VALUES ('4', 'SUPER');
+INSERT INTO `spring_boot`.`sys_user` (`id`, `password`, `username`) VALUES ('1', '$2a$04$5EzhLxOthTOMc5pN/Ozg1.wzrbijftcgEqXPouJt7igKIoxAmVWtO', 'liuyan');
+INSERT INTO `spring_boot`.`sys_user` (`id`, `password`, `username`) VALUES ('2', '$2a$04$2/GN1BIPc6agihyHMQce4OSr34CgPCTRgiTQYEr51Wc1zm7u5eOTm', 'dongdong');
+INSERT INTO `spring_boot`.`sys_user` (`id`, `password`, `username`) VALUES ('3', '$2a$04$3Cksa3X0bYdYDkDm231w/uZ8BWJiV57OKTG9PZo8iFHTxNZ1jT77a', 'admin');
 
-INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `username`) VALUES ('1', NULL, NULL, '$2a$04$gFy2WhhzOQ/xMn07jz1hXOQt6FvVfj9LA88UK/b.T6WzpVSZO4O6e', 'bingbing');
-INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `username`) VALUES ('2', NULL, NULL, '$2a$04$kNJhVE/sXpdDJY6x734H8.pXutDOYE4dKErwEB1m5froNMb2zcECu', 'dongdong');
-INSERT INTO `spring_boot`.`sys_user` (`id`, `dob`, `email`, `password`, `username`) VALUES ('3', NULL, NULL, '$2a$04$0zbElHWKdnHPDjxM3xFUguAXSztudjwQ.TopN0IjHHjN14oIBfl..', 'jason');
+INSERT INTO `spring_boot`.`sys_role` (`id`, `role_name`) VALUES ('1', 'USER');
+INSERT INTO `spring_boot`.`sys_role` (`id`, `role_name`) VALUES ('2', 'ADMIN');
+INSERT INTO `spring_boot`.`sys_role` (`id`, `role_name`) VALUES ('3', 'VIP');
 
-INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('1', NULL, NULL, NULL, '123', NULL, '/hello');
-INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('2', NULL, NULL, NULL, '456', NULL, '/hello2');
-INSERT INTO `spring_boot`.`sys_resource` (`id`, `method_name`, `method_path`, `remark`, `resource_id`, `resource_name`, `resource_string`) VALUES ('3', NULL, NULL, NULL, '789', NULL, '/hello3');
+INSERT INTO `spring_boot`.`sys_resource` (`id`, `resource_name`) VALUES ('1', '/vip');
+INSERT INTO `spring_boot`.`sys_resource` (`id`, `resource_name`) VALUES ('2', '/admin');
+INSERT INTO `spring_boot`.`sys_resource` (`id`, `resource_name`) VALUES ('3', '/user');
 
+INSERT INTO `spring_boot`.`sys_user_roles` (`sys_user_id`, `roles_id`) VALUES ('3', '2');
+INSERT INTO `spring_boot`.`sys_user_roles` (`sys_user_id`, `roles_id`) VALUES ('1', '3');
+INSERT INTO `spring_boot`.`sys_user_roles` (`sys_user_id`, `roles_id`) VALUES ('2', '1');
 
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('1', '2');
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('2', '3');
-INSERT INTO `spring_boot`.`sys_user_sys_roles` (`sys_user_id`, `sys_roles_role_id`) VALUES ('3', '1');
+INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) VALUES ('1', '2', '1');
+INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) VALUES ('2', '1', '3');
+INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) VALUES ('3', '3', '2');
 
-
-INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('1', '123', '1', NULL);
-INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('2', '456', '2', NULL);
-INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`, `update_time`) VALUES ('3', '789', '3', NULL);
 ### SpringSecurity2 初始化数据  ### 结束

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 
@@ -41,12 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .anyRequest().authenticated()
+                .expressionHandler(new DefaultWebSecurityExpressionHandler())
 //                .antMatchers("/hello").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login?error=true")//之所以加true 是因为 th:if{param.error} 会去读取浏览器地址携带的参数，有了true之后，if就成立，所以后面的th:text就能执行。
                 .permitAll()
-                .successHandler(loginSuccessHandler())//code3
+                .successHandler(loginSuccessHandler())
                 .and()
                 .logout()
                 .logoutSuccessUrl("/home")
@@ -54,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and()
                 .rememberMe()
-                .tokenValiditySeconds(1209600);
+                .tokenValiditySeconds(7*24*60*60);
     }
 
     @Override
@@ -71,13 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.eraseCredentials(false);
     }
 
-    // Code5----------------------------------------------
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(4);
     }
 
-    // Code3----------------------------------------------
     @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();

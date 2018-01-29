@@ -53,7 +53,7 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
         List<String> roleNameList = new ArrayList<String>();
         if(roleList!=null && roleList.size()>0) {
             for (SysRole role : roleList) {
-                roleNameList.add(role.getRolename());
+                roleNameList.add(role.getRoleName());
             }
         }
        /*
@@ -69,7 +69,7 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
             List<SysResource>  resourceList = resourceRepository.findByRoleName(roleName);
             if(resourceList!=null && resourceList.size()>0) {//如果不加判断，这里如果 resourceRepository.findByRoleName(roleName);为null.则会报错
                 for(SysResource resource :resourceList){
-                    urlList.add(resource.getResourceString());
+                    urlList.add(resource.getResourceName());
                 }
             }
             for (String res : urlList) {

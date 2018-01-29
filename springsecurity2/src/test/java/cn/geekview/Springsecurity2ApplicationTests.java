@@ -16,7 +16,7 @@ public class Springsecurity2ApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println(resourceRepository.findByRoleName("ADMIN"));
+		System.out.println(resourceRepository.findByRoleName("VIP"));
 	}
 
 }

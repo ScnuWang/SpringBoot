@@ -6,16 +6,16 @@
 </head>
 <body>
 <div th:if="${param.error}">
-    Invalid username and password.
+    用户名和密码不正确
 </div>
 <div th:if="${param.logout}">
-    You have been logged out.
+    注销成功
 </div>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" style="text-align: center">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-    <input type="checkbox" name="remember-me" value="true" th:checked="checked"/><p>Remember me</p>
+    <div><input type="submit" value="登录"/></div>
+    <input type="checkbox" name="remember-me" value="true" th:checked="checked"/><p>记住我</p>
 </form>
 </body>
 </html>

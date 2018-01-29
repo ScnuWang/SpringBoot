@@ -3,7 +3,9 @@ package cn.geekview.entity.model;
 import javax.persistence.*;
 import java.util.Date;
 
-//@Table(name="s_resource_role")
+/**
+ *  资源与角色中间表
+ */
 @Entity
 public class SysResourceRole {
     @Id
@@ -12,13 +14,11 @@ public class SysResourceRole {
     private int id;
 
     @Column(name="roleId",length=50)
-    private String roleId; //角色ID
+    private String roleId;
 
     @Column(name="resourceId",length=50)
-    private String resourceId;//资源ID
+    private String resourceId;
 
-    @Column(name="updateTime")
-    private Date updateTime;//更新时间
 
     public int getId() {
         return id;
@@ -44,13 +44,12 @@ public class SysResourceRole {
         this.resourceId = resourceId;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    @Override
+    public String toString() {
+        return "SysResourceRole{" +
+                "id=" + id +
+                ", roleId='" + roleId + '\'' +
+                ", resourceId='" + resourceId + '\'' +
+                '}';
     }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-
 }

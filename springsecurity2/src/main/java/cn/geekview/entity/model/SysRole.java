@@ -3,44 +3,41 @@ package cn.geekview.entity.model;
 import javax.persistence.*;
 
 
-//@Table(name="s_role")
+/**
+ *  角色类
+ */
 @Entity
 public class SysRole {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column (name="role_id",length=10)
-    private Integer roleId;
+    @Column (name="id",length=10)
+    private Integer id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "uid", nullable = false)//指向另一个表的外键
-//    private SysUser SUser;//角色对应的用户实体
+    @Column(name="roleName",length=100)
+    private String roleName;
 
-    @Column(name="rolename",length=100)
-    private String rolename;//角色名称
-
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    //    public SysUser getSUser() {
-//        return SUser;
-//    }
-//    public void setSUser(SysUser sUser) {
-//        SUser = sUser;
-//    }
-
-
+    @Override
+    public String toString() {
+        return "SysRole{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
 }
 

@@ -7,15 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.geekview.entity.model.SysUser;
+import cn.geekview.entity.repository.SysResourceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
+/**
+ *  登录成功处理器
+ *      需求：
+ *          登录成功后，默认跳转到对应角色下的页面
+ */
+public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-public class LoginSuccessHandler extends
-        SavedRequestAwareAuthenticationSuccessHandler {
+    @Autowired
+    private SysResourceRepository resourceRepository;
+
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response, Authentication authentication) throws IOException,
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException,
             ServletException {
         //获得授权后可得到用户信息   可使用SUserService进行数据库操作
         SysUser userDetails = (SysUser)authentication.getPrincipal();
@@ -25,7 +34,11 @@ public class LoginSuccessHandler extends
 
         System.out.println("IP :"+getIpAddress(request));
 
-        super.onAuthenticationSuccess(request, response, authentication);
+        System.out.println("----->"+resourceRepository.findByRoleName(userDetails.getRoles().get(0).getRoleName()).get(0).getResourceName());
+
+        response.sendRedirect(resourceRepository.findByRoleName(userDetails.getRoles().get(0).getRoleName()).get(0).getResourceName());
+//        super.onAuthenticationSuccess(request, response, authentication);
+
     }
 
     public String getIpAddress(HttpServletRequest request){

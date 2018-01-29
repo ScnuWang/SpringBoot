@@ -1,45 +1,67 @@
 package cn.geekview.entity.model;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-//@Table(name = "s_user")//code11
+import javax.persistence.*;
+import java.util.*;
+
+/**
+ *  用户类
+ */
 @Entity
-public class SysUser implements java.io.Serializable {
+public class SysUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
     @Column(name = "username", length = 120)
-    private String username; //用户名
-    @Column(name = "email", length = 50)
-    private String email;//用户邮箱
-    @Column(name = "password", length = 120)
-    private String password;//用户密码
-    @Temporal(TemporalType.DATE)
-    @Column(name = "dob", length = 10)
-    private Date dob;//时间
+    private String username;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")
-//    private Set<SysRole> SysRoles = new HashSet<SysRole>(0);// 所对应的角色集合
+    @Column(name = "password", length = 120)
+    private String password;
+
     @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
-    private List<SysRole> SysRoles;
+    private List<SysRole> roles;
 
     public SysUser() {
     }
 
-    public SysUser(String username, String email, String password, Date dob, List<SysRole> SysRoles) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.dob = dob;
-        this.SysRoles = SysRoles;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        List<SysRole> userRoles = this.getRoles();
+        if(userRoles != null){
+            for (SysRole role : userRoles) {
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRoleName());
+                authorities.add(authority);
+            }
+        }
+        return authorities;
+    }
 
     public Integer getId() {
         return this.id;
@@ -49,20 +71,12 @@ public class SysUser implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -73,30 +87,20 @@ public class SysUser implements java.io.Serializable {
         this.password = password;
     }
 
-
-    public Date getDob() {
-        return this.dob;
+    public List<SysRole> getRoles() {
+        return roles;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
     }
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "SUser")
-//    public Set<SysRole> getSysRoles() {
-//        return this.SysRoles;
-//    }
-//
-//    public void setSysRoles(Set<SysRole> SysRoles) {
-//        this.SysRoles = SysRoles;
-//    }
-
-
-    public List<SysRole> getSysRoles() {
-        return SysRoles;
-    }
-
-    public void setSysRoles(List<SysRole> sysRoles) {
-        SysRoles = sysRoles;
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

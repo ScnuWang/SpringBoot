@@ -27,6 +27,7 @@ SpringBoot和SpringSecurity整合方式2：
     admin---》/admin
     vip---》/vip
     user---》/user
+    访问其他权限的页面，会提示权限不足
  测试通过  
    
 需求2：

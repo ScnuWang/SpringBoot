@@ -5,13 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-您的角色是：
-<div th:text="${session.SPRING_SECURITY_CONTEXT.getAuthentication().getName()}">
+<div th:text="${exceptionInfo}">
 
     权限不足！！！
 
 </div>
- 权限不足！！！
 <!--<a th:href="@{session.SPRING_SECURITY_CONTEXT.getAuthentication().getName()}">访问您的页面</a>-->
 
 </body>

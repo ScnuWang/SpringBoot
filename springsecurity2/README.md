@@ -11,6 +11,15 @@ SpringBoot和SpringSecurity整合方式2：
     admin/123456
     liuyan/123456
     dongdong/123456
+
+操作步骤：
+
+    1、使用IDEA(也可以用其他类似工具如：Eclipse)直接下载安装工程
+    2、修改数据库相关信息
+    3、启动**SpringSecurity2**模块
+    4、初始化init_sql目录里面的SpringSecurity2.sql初始化语句
+    5、访问localhost,然后使用上面的测试账号登录    
+
     
 需求1：
 
@@ -26,6 +35,8 @@ SpringBoot和SpringSecurity整合方式2：
     vip登录后可以访问/vip、/user
     user登录后可以访问/user
     
+  后续添加
     
-缺陷1：资源和角色是一对一的
+目前缺陷1：资源和角色是一对一的
+目前缺陷2：Remenber Me功能没有用起来
     

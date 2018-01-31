@@ -11,6 +11,7 @@ SpringBoot和SpringSecurity整合方式2：
     admin/123456
     liuyan/123456
     dongdong/123456
+    jason/123456
 
 操作步骤：
 
@@ -27,18 +28,18 @@ SpringBoot和SpringSecurity整合方式2：
     admin---》/admin
     vip---》/vip
     user---》/user
+    super---》/super
     访问其他权限的页面，会提示权限不足
  测试通过  
    
 需求2：
 
+    super登陆后可以访问/super、/admin、/vip、/user
     admin登录后可以访问/admin、/vip、/user
     vip登录后可以访问/vip、/user
     user登录后可以访问/user
     
-  后续添加
-    
-目前缺陷1：资源和角色是一对一的
+目前缺陷1：~~资源和角色一一对应~~   
 目前缺陷2：Remenber Me功能没有用起来
 目前缺陷3：前端获取不到权限验证失败的信息（异常信息）
     

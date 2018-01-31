@@ -58,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler())
                 .and()
                 .logout()
-                .logoutSuccessUrl("/home")
                 .permitAll()
                 .invalidateHttpSession(true)
                 .and()

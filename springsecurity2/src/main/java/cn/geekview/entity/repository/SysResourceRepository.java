@@ -14,6 +14,6 @@ public interface SysResourceRepository extends JpaRepository<SysResource,Integer
      * @return
      *
      */
-    @Query(value = "SELECT * FROM sys_resource  WHERE id = ( SELECT resource_id FROM sys_resource_role  WHERE role_id = ( SELECT  id  FROM sys_role  WHERE role_name = ?1))",nativeQuery = true)
+    @Query(value = "SELECT * FROM sys_resource  WHERE id IN ( SELECT resource_id FROM sys_resource_role  WHERE role_id = ( SELECT  id  FROM sys_role  WHERE role_name = ?1))",nativeQuery = true)
     List<SysResource> findByRoleName(String rolename);
 }

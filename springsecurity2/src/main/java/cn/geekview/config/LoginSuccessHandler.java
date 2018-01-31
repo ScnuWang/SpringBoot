@@ -33,7 +33,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         System.out.println("管理员 " + userDetails.getUsername() + " 登录");
 
         System.out.println("IP :"+getIpAddress(request));
-
         System.out.println("----->"+resourceRepository.findByRoleName(userDetails.getRoles().get(0).getRoleName()).get(0).getResourceName());
         //登录成功后跳转到默认对应的页面
         response.sendRedirect(resourceRepository.findByRoleName(userDetails.getRoles().get(0).getRoleName()).get(0).getResourceName());

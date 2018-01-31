@@ -39,9 +39,17 @@ SpringBoot和SpringSecurity整合方式2：
     vip登录后可以访问/vip、/user
     user登录后可以访问/user
    测试通过 
+   
 目前缺陷1：~~资源和角色一一对应~~   
 
 目前缺陷2：Remenber Me功能没有用起来
 
-目前缺陷3：前端获取不到权限验证失败的信息（异常信息）
+目前缺陷3：~~前端获取不到权限验证失败的信息（异常信息）~~
     
+    
+ 
+ 
+参考文献：
+   
+    http://blog.csdn.net/code__code/article/details/53885510
+    http://blog.csdn.net/honghailiang888/article/details/53765508

@@ -60,6 +60,14 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
+        /**
+         * 如果一个AccessDeniedException被抛出并且用户已经被认证，那么这意味着一个操作已经尝试了它们不具有足够的权限。
+         * 在这种情况下，ExceptionTranslationFilter将调用第二策略，AccessDeniedHandler。
+         * 默认情况下,AccessDeniedHandlerImpl被使用，这只是发送一个403（禁止）响应于客户端。
+         * 此外，还可以配置明确的实例，并设置一个错误页面的URL，它会请求转发 .
+         * 这可以是一个简单的“拒绝访问”页上，如一个JSP，或者它可以是更复杂的处理程序，如一个MVC的控制器。
+         * 当然，你可以自己实现接口，并使用自己的实现。
+         */
         throw new AccessDeniedException("权限不足");
     }
 

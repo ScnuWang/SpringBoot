@@ -8,8 +8,9 @@
 这里是首页！！！
 
 
-
-<a href="/login">登录</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-primary" value="注销"/>
+</form>
 
 访问：
 <a href="/home">首页</a>

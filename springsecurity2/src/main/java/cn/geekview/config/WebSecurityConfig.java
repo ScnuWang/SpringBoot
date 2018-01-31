@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 
 @Configuration
@@ -41,21 +43,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
                 .authorizeRequests()
+                //路径/home不需要验证
                 .antMatchers("/home").permitAll()
+                //任何请求都需要授权
                 .anyRequest().authenticated()
-                .expressionHandler(new DefaultWebSecurityExpressionHandler())
-//                .antMatchers("/hello").hasRole("ADMIN")
+             // .expressionHandler(new DefaultWebSecurityExpressionHandler())作用是什么?
                 .and()
                 .formLogin()
                 .loginPage("/login")//之所以加true 是因为 th:if{param.error} 会去读取浏览器地址携带的参数，有了true之后，if就成立，所以后面的th:text就能执行。
                 .permitAll()
+                //登录成功处理
                 .successHandler(loginSuccessHandler())
                 .and()
                 .logout()
                 .permitAll()
+                //注销后使session相关信息无效
                 .invalidateHttpSession(true)
                 .and()
+                // 开启rememberme功能：验证，登录成功后，关闭页面，直接访问登陆后可以访问的页面
                 .rememberMe()
+                //持久化到数据库
+//                .tokenRepository()
                 .tokenValiditySeconds(7*24*60*60);
         //权限不足处理
         http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl()).accessDeniedPage("/deny");

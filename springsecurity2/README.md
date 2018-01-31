@@ -42,7 +42,7 @@ SpringBoot和SpringSecurity整合方式2：
    
 目前缺陷1：~~资源和角色一一对应~~   
 
-目前缺陷2：Remenber Me功能没有用起来
+目前缺陷2：Remenber Me持久化到数据库没有实现
 
 目前缺陷3：~~前端获取不到权限验证失败的信息（异常信息）~~
     
@@ -51,5 +51,6 @@ SpringBoot和SpringSecurity整合方式2：
  
 参考文献：
    
+    https://docs.spring.io/spring-security/site/docs/4.2.4.RELEASE/reference/htmlsingle/
     http://blog.csdn.net/code__code/article/details/53885510
     http://blog.csdn.net/honghailiang888/article/details/53765508

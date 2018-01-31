@@ -38,7 +38,7 @@ SpringBoot和SpringSecurity整合方式2：
     admin登录后可以访问/admin、/vip、/user
     vip登录后可以访问/vip、/user
     user登录后可以访问/user
-    
+   测试通过 
 目前缺陷1：~~资源和角色一一对应~~   
 
 目前缺陷2：Remenber Me功能没有用起来

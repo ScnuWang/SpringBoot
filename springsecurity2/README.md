@@ -40,6 +40,8 @@ SpringBoot和SpringSecurity整合方式2：
     user登录后可以访问/user
     
 目前缺陷1：~~资源和角色一一对应~~   
+
 目前缺陷2：Remenber Me功能没有用起来
+
 目前缺陷3：前端获取不到权限验证失败的信息（异常信息）
     

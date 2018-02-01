@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 开启rememberme功能：验证，登录成功后，关闭页面，直接访问登陆后可以访问的页面
                 .rememberMe()
-                //持久化到数据库
+                //持久化到数据库 如果不需要持久化到数据库，直接注释掉即可
                 .rememberMeServices(new PersistentTokenBasedRememberMeServices("MySpringSecurityCookie",customUserDetailsService,persistentTokenRepository()))
                 //设置有效时间
                 .tokenValiditySeconds(7*24*60*60);

@@ -54,8 +54,3 @@ SpringBoot和SpringSecurity整合方式2：
     
     
  
- 
-参考文献：
-   
-    https://docs.spring.io/spring-security/site/docs/4.2.4.RELEASE/reference/htmlsingle/
-    http://blog.csdn.net/code__code/article/details/53885510

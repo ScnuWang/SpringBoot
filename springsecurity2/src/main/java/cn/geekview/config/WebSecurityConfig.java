@@ -38,10 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
 
     }
-    //http://localhost:8080/login 输入正确的用户名密码 并且选中remember-me 则登陆成功，转到 index页面
-    //再次访问index页面无需登录直接访问
-    //访问http://localhost:8080/home 不拦截，直接访问，
-    //访问http://localhost:8080/hello 需要登录验证后，且具备 “ADMIN”权限hasAuthority("ADMIN")才可以访问
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -68,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 //持久化到数据库
                 .rememberMeServices(new PersistentTokenBasedRememberMeServices("MySpringSecurityCookie",customUserDetailsService,persistentTokenRepository()))
+                //设置有效时间
                 .tokenValiditySeconds(7*24*60*60);
         //权限不足处理
         http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl()).accessDeniedPage("/deny");

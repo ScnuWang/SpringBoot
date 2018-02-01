@@ -32,7 +32,9 @@ INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) V
 INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) VALUES ('9', '2', '2');
 INSERT INTO `spring_boot`.`sys_resource_role` (`id`, `resource_id`, `role_id`) VALUES ('10', '2', '3');
 
-create table persistent_logins (username varchar(64) not null,
-                                series varchar(64) primary key,
-                                token varchar(64) not null,
-                                last_used timestamp not null)
+CREATE TABLE persistent_logins (
+  username VARCHAR (64) NOT NULL,
+  series VARCHAR (64) PRIMARY KEY,
+  token VARCHAR (64) NOT NULL,
+  last_used TIMESTAMP NOT NULL
+)

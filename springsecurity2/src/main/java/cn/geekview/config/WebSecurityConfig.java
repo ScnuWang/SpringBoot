@@ -2,6 +2,7 @@ package cn.geekview.config;
 
 import cn.geekview.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -63,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 开启rememberme功能：验证，登录成功后，关闭页面，直接访问登陆后可以访问的页面
                 .rememberMe()
                 //持久化到数据库
-//                .tokenRepository()
+                .rememberMeServices(new PersistentTokenBasedRememberMeServices("MySpringSecurityCookie",customUserDetailsService,persistentTokenRepository()))
                 .tokenValiditySeconds(7*24*60*60);
         //权限不足处理
         http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl()).accessDeniedPage("/deny");
@@ -83,8 +87,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.eraseCredentials(false);
     }
 
-
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(4);
@@ -94,4 +96,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        // 设置数据源 默认使用的Apache的连接池
+        jdbcTokenRepository.setDataSource(dataSource);
+        // 设置初始化存储Token的表  方便调试 由于源码没有对数据库中是否有表结构做出判断，正常使用的时候不建议开启，不然第二次启动会报错！
+//        jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
+
 }

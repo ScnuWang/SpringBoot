@@ -36,13 +36,12 @@ public class Springsecurity2Application {
 			HandlerMethod method = map.get(info);
 			String methodstr = method.toString();
 			methodstr = methodstr.split("\\(")[0];
-			methodstr = methodstr.split(" ")[2];
-			int i=methodstr.lastIndexOf(".");
-			methodstr = methodstr.substring(0,i);
+
 			String urlparm = info.getPatternsCondition().toString();
 			String url = urlparm.substring(1, urlparm.length()-1);
-			System.out.println(methodstr);
-			System.out.println(url);
+			System.out.println("方法路径："+methodstr);
+			System.out.println("请求相对路径："+url);
+			// 数据库操作
 //			List<SysResource> list = sresourceService.findByResourceString(url);
 //			if(list==null || list.size()<=0){
 //				int num = (int)(Math.random()*100+1);

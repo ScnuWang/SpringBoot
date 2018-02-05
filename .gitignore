@@ -2,6 +2,7 @@
 /.idea
 target/
 /springsecurity2/.mvn
+/Spring_Security_OAuth/.mvn
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

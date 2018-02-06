@@ -44,7 +44,7 @@ import java.util.Iterator;
 @Service
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
-    //这里验证完了之后，抛出的异常，被哪个过滤器吃掉了？
+    //这里验证完了之后，抛出的异常，想要捕捉，需要ExceptionTranslationFilter来进行处理
     public void decide( Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException{
         if( configAttributes == null ) {
             return ;

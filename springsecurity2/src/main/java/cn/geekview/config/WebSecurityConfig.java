@@ -1,5 +1,7 @@
 package cn.geekview.config;
 
+import cn.geekview.service.CustomAccessDecisionManager;
+import cn.geekview.service.CustomInvocationSecurityMetadataSourceService;
 import cn.geekview.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -26,11 +28,12 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyFilterSecurityInterceptor mySecurityFilter;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+//    @Autowired
+//    private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -42,7 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
+//                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
+                // 重新添加拥有自己属性的过滤器;
+                /**
+                 *  不使用自定义过滤器类的话，可以直接使用默认实现的类，并提供自定义的属性
+                 */
+                .addFilter(filterSecurityInterceptor())
                 .authorizeRequests()
                 //路径/home不需要验证
                 .antMatchers("/home").permitAll()
@@ -76,14 +84,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //指定密码加密所使用的加密器为passwordEncoder()
         //需要将密码加密后写入数据库
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
         //不删除凭据，以便记住用户
         auth.eraseCredentials(false);
     }
+
+    /**
+     *  这种方式注入，会使用AuthenticationManagerBuilder新建一个AuthenticationManager对象，这就和下面
+     *      @Autowired
+            private AuthenticationManager authenticationManager;
+         产生冲突导致报错，所以尽量使用上面的方式引入
+
+     * @return
+     */
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        //指定密码加密所使用的加密器为passwordEncoder()
+//        //需要将密码加密后写入数据库
+//        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+//        //不删除凭据，以便记住用户
+//        auth.eraseCredentials(false);
+//
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -108,4 +134,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
+    @Autowired
+    private CustomInvocationSecurityMetadataSourceService mySecurityMetadataSource;
+
+    @Autowired
+    private CustomAccessDecisionManager myAccessDecisionManager;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Bean
+    public FilterSecurityInterceptor filterSecurityInterceptor(){
+        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        filterSecurityInterceptor.setSecurityMetadataSource(mySecurityMetadataSource);
+        filterSecurityInterceptor.setAccessDecisionManager(myAccessDecisionManager);
+        filterSecurityInterceptor.setAuthenticationManager(authenticationManager);
+        return filterSecurityInterceptor;
+    }
 }

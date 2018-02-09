@@ -1,8 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-/.idea
 target/
-/springsecurity2/.mvn
-/springsecurity3/.mvn
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

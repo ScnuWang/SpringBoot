@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1 th:text="用户注册">form</h1>
+<form action="/user/registration" method="POST" enctype="utf8">
+    <div>
+        <label >用户名</label>
+        <input th:field="*{username}"/>
+        <p th:each="error: ${#fields.errors('username')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label >邮箱</label>
+        <input type="email" th:field="*{email}"/>
+        <p th:each="error : ${#fields.errors('email')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label >密码</label>
+        <input type="password" th:field="*{password}"/>
+        <p th:each="error : ${#fields.errors('password')}"
+           th:text="${error}">Validation error</p>
+    </div>
+    <div>
+        <label >确认密码</label>
+        <input type="password" th:field="*{matchingPassword}"/>
+    </div>
+    <button type="submit" th:text="注册" >注册</button>
+</form>
+
+<a th:href="@{/login.html}" th:text="登录">login</a>
+</body>
+</html>

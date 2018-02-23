@@ -3,8 +3,6 @@ package cn.geekview.event;
 import cn.geekview.entity.model.User;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.Locale;
-
 /**
  *  ApplicationEvent   ?????
  */

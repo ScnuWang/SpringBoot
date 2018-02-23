@@ -19,9 +19,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private IUserService service;
 
     @Autowired
-    private MessageSource messages;
-
-    @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
@@ -44,15 +41,13 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private final SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final User user, final String token) {
         final String recipientAddress = user.getEmail();
-        final String subject = "Registration Confirmation";
-        final String confirmationUrl = event.getAppUrl() + "/registrationConfirm.html?token=" + token;
-        // 不进行国际化
-//        final String message = messages.getMessage("message.regSucc", null, event.getLocale());
+        final String subject = "注册邮箱激活";
+        final String confirmationUrl = event.getAppUrl() + "/regitrationConfirm?token=" + token;
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(confirmationUrl);
-        email.setFrom(env.getProperty("support.email"));
+        email.setText("http://localhost:80"+confirmationUrl);
+        email.setFrom(env.getProperty("mail.from.addr"));
         return email;
     }
 

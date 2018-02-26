@@ -66,7 +66,7 @@ public class UserController {
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent (registered, appUrl));
         } catch (Exception me) {
-            return new ModelAndView("emailError", "message", "邮箱发送异常，请检查您的邮箱地址是否正确");
+            return new ModelAndView("emailError", "message", "邮件发送异常，请检查您的邮箱地址是否正确");
         }
         return new ModelAndView("home", "user", user);
     }

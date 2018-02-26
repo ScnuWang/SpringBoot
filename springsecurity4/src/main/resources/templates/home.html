@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>HOME</title>
+</head>
+<body>
+
+这里是首页！！！
+
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-primary" value="注销"/>
+</form>
+
+访问：
+<a href="/home">首页</a>
+<a href="/user">普通用户页面</a>
+<a href="/vip">VIP用户页面</a>
+<a href="/admin">管理员页面</a>
+<a href="/super">超级管理员页面</a>
+
+<a href="regist.html">注册</a>
+<a href="login.html">登录</a>
+
+</body>
+</html>

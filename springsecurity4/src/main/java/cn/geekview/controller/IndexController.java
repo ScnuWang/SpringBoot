@@ -2,6 +2,7 @@ package cn.geekview.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -45,5 +46,15 @@ public class IndexController {
     @GetMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @GetMapping("/CSRFTest")
+    public String product(){
+        return "CSRFTest";
+    }
+
+    @PostMapping("/CSRFTestcheck")
+    public String product1(){
+        return "home";
     }
 }

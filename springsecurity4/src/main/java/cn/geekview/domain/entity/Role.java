@@ -1,6 +1,5 @@
 package cn.geekview.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,11 +17,17 @@ public class Role {
 
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToMany(targetEntity = User.class,mappedBy = "roles",fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "t_role_resorces",
+            joinColumns = { @JoinColumn(name = "roles_id") },
+            inverseJoinColumns = { @JoinColumn(name = "resources_id") })
     private Set<Resource> resources = new HashSet<>();
 
 }

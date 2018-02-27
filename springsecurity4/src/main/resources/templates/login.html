@@ -3,15 +3,38 @@
 <head>
     <title>登录</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--<meta name="_csrf" content="${_csrf.token}"/>-->
+    <!--<meta name="_csrf_header" content="${_csrf.headerName}"/>-->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <!--<script>-->
+        <!--/*<![CDATA[*/-->
+
+        <!--alert($==jQuery);-->
+
+        <!--var token = $("meta[name='_csrf']").attr("content");-->
+        <!--var header = $("meta[name='_csrf_header']").attr("content");-->
+        <!--alert(token);-->
+        <!--alert(header);-->
+        <!--$.ajaxSetup({-->
+            <!--beforeSend: function (xhr) {-->
+                <!--if(header && token ){-->
+                    <!--xhr.setRequestHeader(header, token);-->
+                <!--}-->
+            <!--}}-->
+        <!--);-->
+        <!--/*]]>*/-->
+    <!--</script>-->
 </head>
 <body>
     <form method="post" action="/login">
         邮  箱：<input name="username" type="text"/>
         密  码：<input name="password" type="password"/>
+        <!--注释掉可测试CSRF防御-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <button  value="登录">登录</button>
     </form>
 
-    <th:block th:text="${#httpServletRequest.getAttribute('SPRING_SECURITY_403_EXCEPTION')}"></th:block>
+    <th:block th:text="${#httpServletRequest.session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION')}"></th:block>
 
 </body>
 </html>

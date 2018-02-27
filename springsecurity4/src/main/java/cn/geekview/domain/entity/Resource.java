@@ -18,7 +18,12 @@ public class Resource {
 
     private String resource;
 
-    @ManyToMany(mappedBy = "resources" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "resources")
     private Set<Role> roles = new HashSet<>();
 
 }

@@ -1,5 +1,6 @@
 package cn.geekview.config.security;
 
+import cn.geekview.handler.LoginFailureHandler;
 import cn.geekview.handler.LoginSuccessHandler;
 import cn.geekview.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,6 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")//之所以加true 是因为 th:if{param.error} 会去读取浏览器地址携带的参数，有了true之后，if就成立，所以后面的th:text就能执行。
                 .permitAll()
+                //登录失败处理
+                .failureHandler(loginFailureHandler())
                 //登录成功处理
                 .successHandler(loginSuccessHandler())
                 .and()
@@ -73,7 +78,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeServices(new PersistentTokenBasedRememberMeServices("MySpringSecurityCookie",userService,persistentTokenRepository()))
                 //设置有效时间
                 .tokenValiditySeconds(7*24*60*60)
-        .and().csrf().disable();
+                .and()
+                .csrf()
+                .csrfTokenRepository(new HttpSessionCsrfTokenRepository());
         /**
          *  处理AccessDeniedException 且用户不是匿名用户
          *  例如：USER角色访问ADMIN角色的资源，提示权限不足
@@ -83,9 +90,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          *  1、处理AuthenticationException
          *  2、处理AccessDeniedException 且用户是匿名用户
          *  例如：用户注册之后没有激活提示DisabledException
-         *
          */
-        http.exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint(){
+        return new AuthenticationEntryPoint() {
             String errorPage = "/deny";
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
@@ -109,7 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 }
             }
-        });
+        };
     }
 
     @Autowired
@@ -133,6 +144,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
+    }
+
+    @Bean
+    public LoginFailureHandler loginFailureHandler(){
+        return new LoginFailureHandler();
     }
 
     @Autowired

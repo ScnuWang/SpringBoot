@@ -5,6 +5,7 @@ import cn.geekview.domain.entity.User;
 import cn.geekview.domain.entity.ValidateToken;
 import cn.geekview.event.OnRegistrationCompleteEvent;
 import cn.geekview.service.IUserService;
+import cn.geekview.util.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -81,6 +86,5 @@ public class UserController {
         userService.saveRegistratedUser(user);
         return "redirect:/login";
     }
-
 
 }

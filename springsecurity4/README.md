@@ -25,6 +25,8 @@
     
     3、CSRF防御：org.springframework.security.web.csrf.InvalidCsrfTokenException: Invalid CSRF Token 'null' was found on the request parameter '_csrf' or header 'X-CSRF-TOKEN'.
     答：thymeleaf 在POST表单中添加<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />即可
+
+         如果对第三方开放接口，那么以上方式就不能用了，需要添加排除CSRF防御的列表
     
     
     

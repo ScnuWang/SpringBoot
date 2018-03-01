@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -80,6 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(7*24*60*60)
                 .and()
                 .csrf()
+                //自定义匹配器，方便排除那些不需要csrf防御的地址
+                .requireCsrfProtectionMatcher(csrfSecurityRequestMatcher())
                 .csrfTokenRepository(new HttpSessionCsrfTokenRepository());
         /**
          *  处理AccessDeniedException 且用户不是匿名用户
@@ -167,5 +171,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager);
         filterSecurityInterceptor.setAuthenticationManager(authenticationManager);
         return filterSecurityInterceptor;
+    }
+
+    @Bean
+    public CSRFSecurityRequestMatcher csrfSecurityRequestMatcher(){
+        Set<String> excludedUrls = new HashSet<>();
+        excludedUrls.add("/vip/");
+        CSRFSecurityRequestMatcher csrfSecurityRequestMatcher = new CSRFSecurityRequestMatcher();
+        csrfSecurityRequestMatcher.setExcludedUrls(excludedUrls);
+        return csrfSecurityRequestMatcher;
     }
 }
